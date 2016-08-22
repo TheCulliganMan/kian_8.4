@@ -1,5 +1,5 @@
 #Kian 8.4 PSMC
-
+For loops are usually a good idea...
 ##Index Fasta
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
