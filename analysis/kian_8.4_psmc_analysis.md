@@ -25,3 +25,18 @@ samtools mpileup -C50 -uf $REF mass_auto_RANO.bam | bcftools call -c - | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_RANO.fq.gz
 samtools mpileup -C50 -uf $REF mass_auto_toro824.bam | bcftools call -c - | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_toro824.fq.gz
+```
+
+##Create .psmc file:
+```bash
+utils/fq2psmcfa -q20 mass_auto_KAR3.fq.gz > mass_auto_KAR3.psmcfa;
+
+psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o mass_auto_KAR3.psmc mass_auto_KAR3.psmcfa;
+
+seq 100 | xargs -i echo psmc -N25 -t15 -r5 -b -p "4+25*2+4+6" \
+	    -o round-{}.psmc split.fa | sh
+
+cat mass_auto_KAR3.psmc round-*.psmc > combined.psmc
+	utils/psmc_plot.pl -pY50000 combined combined.psmc
+
+```
