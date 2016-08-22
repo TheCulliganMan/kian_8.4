@@ -17,17 +17,19 @@ bwa mem -t 32 $REF ../kian8.4l280a1.fastq > mass_auto_kian8.4.bam; #280 insert l
 ##Extract fq.gz
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
-samtools mpileup -C50 -uf $REF mass_auto_KAR3.bam | bcftools call -c - | \
+samtools mpileup -C50 -uf $REF mass_auto_KAR3.bam | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_KAR3.fq.gz
-samtools mpileup -C50 -uf $REF mass_auto_KIAN81.bam | bcftools call -c - | \
+samtools mpileup -C50 -uf $REF mass_auto_KIAN81.bam | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_KIAN81.fq.gz
-samtools mpileup -C50 -uf $REF mass_auto_RANO.bam | bcftools call -c - | \
+samtools mpileup -C50 -uf $REF mass_auto_RANO.bam | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_RANO.fq.gz
-samtools mpileup -C50 -uf $REF mass_auto_toro824.bam | bcftools call -c - | \
+samtools mpileup -C50 -uf $REF mass_auto_toro824.bam | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_toro824.fq.gz
 ```
 
 ##Create .psmc file:
+This is the basic bootstrapping command.  For an overly complex script to run things in parallel go to the [psmc bootstrapper](../bin/bootstrap_psmc.py)
+
 ```bash
 utils/fq2psmcfa -q20 mass_auto_KAR3.fq.gz > mass_auto_KAR3.psmcfa;
 
