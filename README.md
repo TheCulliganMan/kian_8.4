@@ -1,35 +1,31 @@
 #Kian8.4 Genome Stats and Analysis
 
-##Trimmomatic + NxTrim
+##[Trimmomatic + NxTrim](analysis/kian_8.4_trimming.md)
 
 Raw read trimming results for fastq files.
 
-[Trimming Stats](analysis/kian_8.4_trimming.md)
 
+##[Repeat Masking](analysis/kian_8.4_repeat_masking.md)
 
-##Repeat Masking
 
 Repeat masking for genome analysis and downstream autosome extraction.
 
-[Repeat Masker Results](analysis/kian_8.4_repeat_masking.md)
 
 
-##Busco
+##[Busco Results](analysis/kian_8.4_busco.md)
 
 Genome assembly quality analysis with BUSCO_1.22 (single copy orthologs).
 
-[Busco Results](analysis/kian8.4_busco.md)
 
 
-##Autosome Extraction
+
+##[Autosome Extraction](analysis/kian_8.4_autosome_extraction.md)
+
 
 Autosome extraction pipeline to prep for PSMC.
 
-[Autosome Extraction Results](analysis/kian_8.4_autosome_extraction.md)
 
 
-##PSMC
+##[PSMC](analysis/kian_8.4_psmc_analysis.md)
 
 Evolutionary bottleneck analysis with PSMC.
-
-[PSMC](analysis/kian_8.4_psmc_analysis.md)
