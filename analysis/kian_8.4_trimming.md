@@ -44,7 +44,6 @@ Using PrefixPair: 'TACACTCTTTCCCTACACGACGCTCTTCCGATCT' and 'GTGACTGGAGTTCAGACGTG
 ILLUMINACLIP: Using 1 prefix pairs, 0 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
 Input Read Pairs: 273244682 Both Surviving: 103619089 (37.92%) Forward Only Surviving: 16320160 (5.97%) Reverse Only Surviving: 56200891 (20.57%) Dropped: 97104542 (35.54%)
 TrimmomaticPE: Completed successfully
-slurmstepd: error: Exceeded step memory limit at some point.
 ```
 ##6k MP Nxtrim + Trimmomatic
 ###NxTrim
@@ -63,7 +62,6 @@ Trimming summary:
 8315870 / 203994212	( 4.08% )	were single end reads
 
 20811922 / 203994212	( 10.20% )	extra single end reads were generated from overhangs
-Output: kian8.4mp8ka1.*.fastq.gz
 ```
 ###Trimmomatic
 ```
