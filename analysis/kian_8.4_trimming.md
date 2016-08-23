@@ -1,5 +1,41 @@
-#Kian8.4 Genome Trimmomatic Stats
+#Kian8.4 Genome Trimming Commands
+##Trimmomatic Command:
+```bash
+java -jar /work/hdzoo/rhlei/Trimmomatic-0.33/trimmomatic-0.33.jar PE \
+        -phred33 \
+        /work/hdzoo/rhlei/kian8.4tdata/kian8.4o/kian8.4l280a1.fastq /work/hdzoo/rhlei/kian8.4tdata/kian8.4o/kian8.4l280a2.fastq \
+        kian8.4l280a1_TR_paired.fastq kian8.4l280a1_TR_unpaired.fastq \
+        kian8.4l280a2_TR_paired.fastq kian8.4l280a2_TR_unpaired.fastq \
+        ILLUMINACLIP:/work/hdzoo/rhlei/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 \
+        LEADING:3 \
+        TRAILING:3 \
+        SLIDINGWINDOW:4:30 \
+        MINLEN:70;
+```
+##NxTrim Command Example:
+```bash
+nxtrim --separate -1 /work/hdzoo/rhlei/kian8.4tdata/kian8.4o/kian8.4mp6ka1.fastq -O kian8.4mp6ka1 -2 /work/hdzoo/rhlei/kian8.4tdata/kian8.4o/kian8.4mp6ka2.fastq
+```
+##Trimmomatic Post NxTrim
+These weren't used in the assemblies.
+```bash
+cat kian8.4mp8ka1_R1.mp.fastq.gz kian8.4mp8ka1_R1.unknown.fastq.gz > kian8.4m8ka1_R1.mp.unknown.fastq.gz;
+cat kian8.4mp8ka1_R2.mp.fastq.gz kian8.4mp8ka1_R2.unknown.fastq.gz > kian8.4m8ka1_R2.mp.unknown.fastq.gz;
 
+R1=kian8.4m8ka1_R1.mp.unknown.fastq.gz
+R2=kian8.4m8ka1_R2.mp.unknown.fastq.gz
+java -jar /work/hdzoo/rhlei/programs/Trimmomatic-0.33/trimmomatic-0.33.jar PE \
+        -phred33 \
+        $R1 $R2 \
+        ${R1}_trimmed.fastq ${R1}_Fsingle.fastq ${R2}_trimmed.fastq ${R1}_Rsingle.fastq \
+        ILLUMINACLIP:/work/hdzoo/rhlei/programs/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 \
+        LEADING:3 \
+        TRAILING:3 \
+        SLIDINGWINDOW:4:30 \
+        MINLEN:70;
+rm ${R1}_Fsingle.fastq ${R1}_Rsingle.fastq;
+```
+#Kian8.4 Genome Trimming Results
 ##220 Insert
 ```
 TrimmomaticPE: Started with arguments: -phred33 /work/hdzoo/rhlei/kian8.4tdata/kian8.4o/kian8.4l220a1.fastq /work/hdzoo/rhlei/kian8.4tdata/kian8.4o/kian8.4l220a2.fastq kian8.4l220a1_TR_paired.fastq kian8.4l220a1_TR_unpaired.fastq kian8.4l220a2_TR_paired.fastq kian8.4l220a2_TR_unpaired.fastq ILLUMINACLIP:/work/hdzoo/rhlei/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:30 MINLEN:70
