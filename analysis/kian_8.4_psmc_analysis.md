@@ -14,6 +14,24 @@ bwa mem -t 32 $REF RANO355_S3_R1_001_tr_paired.fq RANO355_S3_R2_001_tr_paired.fq
 bwa mem -t 32 $REF TORO824_S2_R1_001_tr_paired.fq TORO824_S2_R2_001_tr_paired.fq > mass_auto_toro824.bam;
 bwa mem -t 32 $REF ../kian8.4l280a1.fastq > mass_auto_kian8.4.bam; #280 insert length
 ```
+##Sort bamfiles
+```bash
+samtools sort --reference $REF -O BAM mass_auto_KAR3.bam -o mass_auto_kar3_sorted.bam &
+samtools sort --reference $REF -O BAM mass_auto_KIAN81.bam -o BAM mass_auto_KIAN81.sorted.bam &
+samtools sort --reference $REF -O BAM mass_auto_RANO.bam -o mass_auto_RANO.sorted.bam &
+samtools sort --reference $REF -O BAM mass_auto_toro824.bam -o mass_auto_toro824.sorted.bam &
+samtools sort --reference $REF -O BAM mass_auto_kian8.4.bam -o mass_auto_kian8.4.sorted.bam
+```
+
+##Remove Duplicates
+```bash
+samtools mass_auto_kar3_sorted.bam mass_auto_kar3_sorted.nodups.bam &
+samtools mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.sorted.nodups.bam &
+samtools mass_auto_RANO.sorted.bam mass_auto_RANO.sorted.nodups.bam &
+samtools mass_auto_toro824.sorted.bam mass_auto_toro824.sorted.nodups.bam &
+samtools mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
+```
+
 ##Extract fq.gz
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
