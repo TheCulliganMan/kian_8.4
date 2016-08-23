@@ -11,6 +11,9 @@ busco -f -c 10 -g kian8.4k29gpgenome.fa -l /BUSCO_v1.22/vertebrata > soap_busco.
 ###ABYSS:
 ```
 ```
+###allpaths
+```
+```
 ###Platanus:
 ```
 ```
