@@ -21,6 +21,13 @@ busco -f -c 10 --abrev soapd -g kian8.4k29gpgenome.fa -l /BUSCO_v1.22/vertebrata
 ```
 ```
 ###MaSuRCA:
+
+[Short Summary](../results/busco_stats/masurca/short_summary_masurca)
+
+[Full Table](../results/busco_stats/masurca/full_table_masurca)
+
+[Coordinates](../results/busco_stats/masurca/coordinates_masurca)
+
 ```
 Complete: 1055
 Single: 1053

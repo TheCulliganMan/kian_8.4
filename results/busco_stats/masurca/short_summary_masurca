@@ -1,0 +1,12 @@
+#Summarized BUSCO benchmarking for file: masurca_scaffold.fa
+#BUSCO was run in mode: genome
+
+Summarized benchmarks in BUSCO notation:
+	C:34%[D:0.0%],F:13%,M:51%,n:3023
+
+	1055	Complete BUSCOs
+	1053	Complete and single-copy BUSCOs
+	2	Complete and duplicated BUSCOs
+	416	Fragmented BUSCOs
+	1552	Missing BUSCOs
+	3023	Total BUSCO groups searched
