@@ -20,20 +20,20 @@ and bcftools actually conflict with one another right now.  You can't have both
 installed at the same time.  You should compile from source right here
 [samtools & bcftools](http://samtools.github.io/bcftools/).
 ```bash
-samtools sort --reference $REF -O BAM mass_auto_KAR3.bam -o mass_auto_kar3_sorted.bam &
-samtools sort --reference $REF -O BAM mass_auto_KIAN81.bam -o BAM mass_auto_KIAN81.sorted.bam &
-samtools sort --reference $REF -O BAM mass_auto_RANO.bam -o mass_auto_RANO.sorted.bam &
-samtools sort --reference $REF -O BAM mass_auto_toro824.bam -o mass_auto_toro824.sorted.bam &
-samtools sort --reference $REF -O BAM mass_auto_kian8.4.bam -o mass_auto_kian8.4.sorted.bam
+samtools sort --reference $REF -O BAM -o mass_auto_kar3_sorted.bam mass_auto_KAR3.bam &
+samtools sort --reference $REF -O BAM -o mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.bam &
+samtools sort --reference $REF -O BAM -o mass_auto_RANO.sorted.bam mass_auto_RANO.bam &
+samtools sort --reference $REF -O BAM -o mass_auto_toro824.sorted.bam mass_auto_toro824.bam  &
+samtools sort --reference $REF -O BAM -o mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.bam
 ```
 
 ##Remove Duplicates
 ```bash
-samtools mass_auto_kar3_sorted.bam mass_auto_kar3_sorted.nodups.bam &
-samtools mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.sorted.nodups.bam &
-samtools mass_auto_RANO.sorted.bam mass_auto_RANO.sorted.nodups.bam &
-samtools mass_auto_toro824.sorted.bam mass_auto_toro824.sorted.nodups.bam &
-samtools mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
+samtools rmdup mass_auto_kar3_sorted.bam mass_auto_kar3_sorted.nodups.bam &
+samtools rmdup mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.sorted.nodups.bam &
+samtools rmdup mass_auto_RANO.sorted.bam mass_auto_RANO.sorted.nodups.bam &
+samtools rmdup mass_auto_toro824.sorted.bam mass_auto_toro824.sorted.nodups.bam &
+samtools rmdup mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
 ```
 
 ##Extract fq.gz
