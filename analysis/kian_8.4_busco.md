@@ -22,6 +22,12 @@ busco -f -c 10 --abrev soapd -g kian8.4k29gpgenome.fa -l /BUSCO_v1.22/vertebrata
 ```
 ###MaSuRCA:
 ```
+Complete: 1055
+Single: 1053
+Multi: 2
+Fragment: 416
+Missing: 1552
+Total BUSCO groups searched: 3023
 ```
 ###SOAP De Novo:
 ```
