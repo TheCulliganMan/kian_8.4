@@ -1,0 +1,12 @@
+#Summarized BUSCO benchmarking for file: kian8.4k29gpgenome.fa
+#BUSCO was run in mode: genome
+
+Summarized benchmarks in BUSCO notation:
+	C:62%[D:2.5%],F:25%,M:11%,n:3023
+
+	1885	Complete BUSCOs
+	1807	Complete and single-copy BUSCOs
+	78	Complete and duplicated BUSCOs
+	780	Fragmented BUSCOs
+	358	Missing BUSCOs
+	3023	Total BUSCO groups searched

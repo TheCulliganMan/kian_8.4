@@ -61,5 +61,16 @@ Missing: 1552
 Total BUSCO groups searched: 3023
 ```
 ###SOAP De Novo:
+[Short Summary](../results/busco_stats/soap/short_summary_soapd)
+
+[Full Table](../results/busco_stats/soap/full_table_soapd)
+
+[Coordinates](../results/busco_stats/soap/coordinates_soapd)
 ```
+Complete: 1885
+Single: 1807
+Multi: 78
+Fragment: 780
+Missing: 358
+Total BUSCO groups searched: 3023
 ```
