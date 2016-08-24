@@ -1,5 +1,9 @@
 #Busco
 ##Commands:
+I ran all the commands in a docker image.  It can be found on the docker hub.
+```bash
+docker run -itv theculliganman/busco
+```
 Just a little note, there seems to be a small Type Error in Busco 1.22.  
 If --abrev goes unspecified the python dies..  It would be an easy fix, but the
 workaround is just fine.
