@@ -30,7 +30,19 @@ Missing: 729
 Total BUSCO groups searched: 3023
 ```
 ###Platanus:
+[Short Summary](../results/busco_stats/platanus/short_summary_plata)
+
+[Full Table](../results/busco_stats/platanus/full_table_plata)
+
+[Coordinates](../results/busco_stats/platanus/coordinates_plata)
+
 ```
+Complete: 1135
+Single: 1125
+Multi: 10
+Fragment: 811
+Missing: 1077
+Total BUSCO groups searched: 3023
 ```
 ###MaSuRCA:
 

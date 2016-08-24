@@ -20,6 +20,7 @@ and bcftools actually conflict with one another right now.  You can't have both
 installed at the same time.  You should compile from source right here
 [samtools & bcftools](http://samtools.github.io/bcftools/).
 ```bash
+REF='masurca_mito_y_x_removed.final.contigs.fasta'
 samtools sort --reference $REF -O BAM -o mass_auto_kar3_sorted.bam mass_auto_KAR3.bam &
 samtools sort --reference $REF -O BAM -o mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.bam &
 samtools sort --reference $REF -O BAM -o mass_auto_RANO.sorted.bam mass_auto_RANO.bam &
@@ -56,7 +57,7 @@ samtools mpileup -C50 -uf $REF mass_auto_toro824.bam | bcftools call -c | \
 
 ##Create .psmc file:
 This is the basic bootstrapping command.  For an overly complex script to run
-things in parallel go to the [psmc bootstrapper](../bin/bootstrap_psmc.py)
+things in parallel go to the [psmc bootstrapper](../bin/bootstrap_psmc.py).
 
 ```bash
 utils/fq2psmcfa -q20 mass_auto_KAR3.fq.gz > mass_auto_KAR3.psmcfa;
