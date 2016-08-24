@@ -1,0 +1,12 @@
+#Summarized BUSCO benchmarking for file: kian8.4plat_gapClosed.fa
+#BUSCO was run in mode: genome
+
+Summarized benchmarks in BUSCO notation:
+	C:37%[D:0.3%],F:26%,M:35%,n:3023
+
+	1135	Complete BUSCOs
+	1125	Complete and single-copy BUSCOs
+	10	Complete and duplicated BUSCOs
+	811	Fragmented BUSCOs
+	1077	Missing BUSCOs
+	3023	Total BUSCO groups searched
