@@ -1,0 +1,12 @@
+#Summarized BUSCO benchmarking for file: allpaths.final.assembly.fasta
+#BUSCO was run in mode: genome
+
+Summarized benchmarks in BUSCO notation:
+	C:48%[D:0.3%],F:27%,M:24%,n:3023
+
+	1476	Complete BUSCOs
+	1466	Complete and single-copy BUSCOs
+	10	Complete and duplicated BUSCOs
+	818	Fragmented BUSCOs
+	729	Missing BUSCOs
+	3023	Total BUSCO groups searched

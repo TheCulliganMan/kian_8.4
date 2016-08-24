@@ -15,7 +15,19 @@ busco -f -c 10 --abrev soapd -g kian8.4k29gpgenome.fa -l /BUSCO_v1.22/vertebrata
 ```
 ```
 ###allpaths
+[Short Summary](../results/busco_stats/allpaths/short_summary_allpa)
+
+[Full Table](../results/busco_stats/allpaths/full_table_allpa)
+
+[Coordinates](../results/busco_stats/allpaths/coordinates_allpa)
+
 ```
+Complete: 1476
+Single: 1466
+Multi: 10
+Fragment: 818
+Missing: 729
+Total BUSCO groups searched: 3023
 ```
 ###Platanus:
 ```
