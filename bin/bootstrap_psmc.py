@@ -12,21 +12,23 @@ except ImportError:
 
 #samtools sort kian84autosome.bam > kian84autosome.sorted.bam
 #/psmc/utils/fq2psmcfa -q20 /psmc_files/kian84autosome.fq.gz > /psmc_files/kian84autosome.psmcfa
-in_filename  = [i for i in os.listdir(os.getcwd()) if i.endswith("psmcfa")][0]
-out_filename = "split_" + in_filename
+in_filenames  = [i for i in os.listdir(os.getcwd()) if i.endswith("psmcfa")]
 
-with open(out_filename, "w+") as output_handle:
-    command = ['/psmc/utils/splitfa', in_filename]
-    sp.call(command, stdout=output_handle)
+for in_filename in in_filenames:
+    out_filename = "split_" + in_filename
+    with open(out_filename, "w+") as output_handle:
+        command = ['/psmc/utils/splitfa', in_filename]
+        sp.call(command, stdout=output_handle)
 
-#/psmc/psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o /psmc_files/split_kian84autosome.psmc /psmc_files/kian84autosome.psmcfa
-commandList = []
-for i in range(1, 101):
-    commandList.append(['/psmc/psmc -N20 -t15 -r5 -b -p "4+25*2+4+6" -o round-{}.psmc {} | sh'.format(i, out_filename)])
+    #/psmc/psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o /psmc_files/split_kian84autosome.psmc /psmc_files/kian84autosome.psmcfa
+    commandList = []
+    basename = os.path.basename(out_filename)
+    for i in range(1, 101):
+        commandList.append(['/psmc/psmc -N20 -t15 -r5 -b -p "4+25*2+4+6" -o round-{}-{}.psmc {} | sh'.format(i, basename, out_filename)])
 
 #multicore threading
 threadList=[]
-for i in range(30): #NUMBER CPU
+for i in range(32): #NUMBER CPU
     threadList.append("Thread-{}".format(i+1))
 
 queueLock = threading.Lock()

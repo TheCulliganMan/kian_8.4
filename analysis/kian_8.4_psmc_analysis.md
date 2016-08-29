@@ -56,17 +56,27 @@ samtools mpileup -C50 -uf $REF mass_auto_toro824.bam | bcftools call -c | \
 ```
 
 ##Create .psmc file:
+Convert the fq.gz to psmcfa files.
+```bash
+/psmc/utils/fq2psmcfa -q20 mass_auto_KAR3.fq.gz > mass_auto_KAR3.psmcfa &
+/psmc/utils/fq2psmcfa -q20 mass_auto_RANO.fq.gz > mass_auto_RANO.psmcfa &
+/psmc/utils/fq2psmcfa -q20 mass_auto_toro824.fq.gz > mass_auto_toro824.psmcfa &
+/psmc/utils/fq2psmcfa -q20 mass_auto_KIAN81.fq.gz > mass_auto_KIAN81.psmcfa &
+/psmc/utils/fq2psmcfa -q20 mass_auto_kian8.4.fq.gz > mass_auto_kian8.4.psmcfa;
+```
 This is the basic bootstrapping command.  For an overly complex script to run
-things in parallel go to the [psmc bootstrapper](../bin/bootstrap_psmc.py).
+things in parallel go to the [psmc bootstrapper](../bin/bootstrap_psmc.py).  
+This command works by dragging the file into the psmcfa folder and running.  
+Change the default values to fit your project.
 
 ```bash
-utils/fq2psmcfa -q20 mass_auto_KAR3.fq.gz > mass_auto_KAR3.psmcfa;
-
 psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o mass_auto_KAR3.psmc mass_auto_KAR3.psmcfa;
 
 seq 100 | xargs -i echo psmc -N25 -t15 -r5 -b -p "4+25*2+4+6" \
 	    -o round-{}.psmc split.fa | sh
-
+```
+Next plot everythin.
+```
 cat mass_auto_KAR3.psmc round-*.psmc > combined.psmc
 	utils/psmc_plot.pl -pY50000 combined combined.psmc
 
