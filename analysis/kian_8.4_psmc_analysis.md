@@ -38,6 +38,14 @@ samtools rmdup mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
 ```
 
 ##Extract fq.gz
+So I actually need the vcf file to get an snp count... 
+```bash
+samtools mpileup -C50 -uf $REF mass_auto_KAR3.bam > mass_auto_KAR3.vcf &
+samtools mpileup -C50 -uf $REF mass_auto_KIAN81.bam > mass_auto_KIAN81.vcf
+samtools mpileup -C50 -uf $REF mass_auto_RANO.bam > mass_auto_RANO.vcf
+samtools mpileup -C50 -uf $REF mass_auto_toro824.bam > mass_auto_toro824.vcf
+samtools mpileup -C50 -uf $REF mass_auto_kian8.4.bam > mass_auto_kian8.4.vcf
+```
 Another fun little change here.  Bcftools view and bcftools call switched some
 functionality a little while ago.  Heng Li's blog recommends
 `bcftools view -c -`, but that doesn't work with the newer versions of the
@@ -45,14 +53,16 @@ software, so I made a switch.
 
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
-samtools mpileup -C50 -uf $REF mass_auto_KAR3.bam | bcftools call -c | \
+cat mass_auto_KAR3.vcf | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_KAR3.fq.gz
-samtools mpileup -C50 -uf $REF mass_auto_KIAN81.bam | bcftools call -c | \
+cat mass_auto_KIAN81.vcf | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_KIAN81.fq.gz
-samtools mpileup -C50 -uf $REF mass_auto_RANO.bam | bcftools call -c | \
+cat mass_auto_RANO.vcf | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_RANO.fq.gz
-samtools mpileup -C50 -uf $REF mass_auto_toro824.bam | bcftools call -c | \
+cat mass_auto_toro824.vcf | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_toro824.fq.gz
+cat mass_auto_kian8.4.vcf | bcftools call -c | \
+		vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_kian8.4.fq.gz
 ```
 
 ##Create .psmc file:
