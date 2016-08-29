@@ -15,7 +15,7 @@ busco -f -c 10 --abrev allpa -g allpaths.final.assembly.fasta -l /BUSCO_v1.22/ve
 busco -f -c 10 --abrev soapd -g kian8.4k29gpgenome.fa -l /BUSCO_v1.22/vertebrata > soap_busco.log &
 ```
 ##Results:
-###ABYSS:
+###Abyss:
 ```
 Complete: 1629
 Single: 1620
@@ -31,7 +31,7 @@ Total BUSCO groups searched: 3023
 
 [Coordinates](../results/busco_stats/abyss/coordinates_abyss)
 
-###allpaths
+###Allpaths:
 [Short Summary](../results/busco_stats/allpaths/short_summary_allpa)
 
 [Full Table](../results/busco_stats/allpaths/full_table_allpa)
@@ -77,7 +77,7 @@ Fragment: 416
 Missing: 1552
 Total BUSCO groups searched: 3023
 ```
-###SOAP De Novo:
+###Soap De Novo:
 [Short Summary](../results/busco_stats/soap/short_summary_soapd)
 
 [Full Table](../results/busco_stats/soap/full_table_soapd)
