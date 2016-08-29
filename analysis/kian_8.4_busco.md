@@ -16,7 +16,18 @@ busco -f -c 10 --abrev soapd -g kian8.4k29gpgenome.fa -l /BUSCO_v1.22/vertebrata
 ```
 ##Results:
 ###ABYSS:
+Complete: 1629
+Single: 1620
+Multi: 9
+Fragment: 755
+Missing: 639
+Total BUSCO groups searched: 3023
 ```
+[Short Summary](../results/busco_stats/abyss/short_summary_abyss)
+
+[Full Table](../results/busco_stats/abyss/full_table_abyss)
+
+[Coordinates](../results/busco_stats/abyss/coordinates_abyss)
 ```
 ###allpaths
 [Short Summary](../results/busco_stats/allpaths/short_summary_allpa)

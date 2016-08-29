@@ -1,0 +1,12 @@
+#Summarized BUSCO benchmarking for file: kian8.4k42_abyss.scaffolds.fa
+#BUSCO was run in mode: genome
+
+Summarized benchmarks in BUSCO notation:
+	C:53%[D:0.2%],F:24%,M:21%,n:3023
+
+	1629	Complete BUSCOs
+	1620	Complete and single-copy BUSCOs
+	9	Complete and duplicated BUSCOs
+	755	Fragmented BUSCOs
+	639	Missing BUSCOs
+	3023	Total BUSCO groups searched
