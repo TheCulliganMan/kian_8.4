@@ -75,7 +75,7 @@ psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o mass_auto_KAR3.psmc mass_auto_KAR3.psmcfa;
 seq 100 | xargs -i echo psmc -N25 -t15 -r5 -b -p "4+25*2+4+6" \
 	    -o round-{}.psmc split.fa | sh
 ```
-Next plot everythin.
+Next plot everything.
 ```
 cat mass_auto_KAR3.psmc round-*.psmc > combined.psmc
 	utils/psmc_plot.pl -pY50000 combined combined.psmc
