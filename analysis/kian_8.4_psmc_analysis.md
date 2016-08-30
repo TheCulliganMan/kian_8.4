@@ -38,7 +38,7 @@ samtools rmdup mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
 ```
 
 ##Extract fq.gz
-So I actually need the vcf file to get an snp count... 
+So I actually need the vcf file to get an snp count...
 ```bash
 samtools mpileup -C50 -uf $REF mass_auto_KAR3.bam > mass_auto_KAR3.vcf &
 samtools mpileup -C50 -uf $REF mass_auto_KIAN81.bam > mass_auto_KIAN81.vcf
@@ -85,9 +85,9 @@ psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o mass_auto_KAR3.psmc mass_auto_KAR3.psmcfa;
 seq 100 | xargs -i echo psmc -N25 -t15 -r5 -b -p "4+25*2+4+6" \
 	    -o round-{}.psmc split.fa | sh
 ```
-Next plot everything.
+Next plot everything.  I used a [template by Heng Li](http://lh3lh3.users.sourceforge.net/download/chimp-fit.gp) for the boostrap replicates in gnuplot.  We can build text files for this by running the an
+[automation script located here](../bin/psmc_plotter.py).  This takes master psmc records and bootstrap replicates and outputs text files into a new subdirectory for gnuplot.  It is fairly specialized to our filenames, but can be easily modified.  This files command is as follows:
+```bash
+python psmc_plotter <path to bootstrap_dir> <path to another bootstrap_dir>
 ```
-cat mass_auto_KAR3.psmc round-*.psmc > combined.psmc
-	utils/psmc_plot.pl -pY50000 combined combined.psmc
-
-```
+After that you have to edit the [[gnuplot teplate file](../templates/simus_plot.gp).  This file will produce the end psmc graph, ready to be rescaled.
