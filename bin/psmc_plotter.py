@@ -5,20 +5,9 @@ import subprocess as sp
 import sys
 import shutil
 
-"""
-
-RUNNING COMMANDS
-
-python psmc_plotter.py <subfolder_1> <subfolder_2>
-or
-python psmc_plotter.py *
-
-"""
-
-
 PSMC_PLOT_PATH  = "/psmc/utils/psmc_plot.pl"
-GENERATION_TIME = "4"
-MUTATION_RATE   = "3.83e-08"
+GENERATION_TIME = "3.5"
+MUTATION_RATE   = "4.4e-10"
 
 def get_paths():
     for path in sys.argv[1:]:
@@ -60,15 +49,24 @@ def run_bootstrapped_plot(path, base_name):
 
 def make_text_dir():
     files = os.listdir(os.getcwd())
+
     if not os.path.isdir("txtfiles"):
         os.makedirs("txtfiles")
+    else:
+        sp.call(['rm', '-r', 'txtfiles'])
+        os.makedirs('txtfiles')
+
     for fi in files:
         if fi.endswith(".gp") or \
         fi.endswith(".eps") or \
         fi.endswith(".par"):
             os.remove(fi)
         elif fi.endswith("txt"):
-            shutil.move(fi, "txtfiles")
+            if not fi == "simus_plot.txt":
+                shutil.move(fi, "txtfiles")
+    shutil.copy("simus_plot.txt", 'txtfiles')
+    os.chdir("txtfiles")
+    sp.call(['gnuplot', 'simus_plot.txt'])
 
 
 def main():
