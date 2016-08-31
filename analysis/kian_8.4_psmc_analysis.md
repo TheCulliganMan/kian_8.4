@@ -5,6 +5,32 @@ For loops are usually a good idea...
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
 bwa index $REF
 ```
+##Process Reads:
+All reads were processed using trimmomatic.  The Toro, Rano, and Kian81 reads
+had a ~600 insert length. To match this with the Kian8.4 reads we used the 8.4
+~800 insert length sequences.  Then ran his raw reads through trimmomatic at the
+same settings, and then clipped the forward and reverse reads with head to the
+length of the Kar3 forward sample.
+
+###Trimmomatic for each sample
+
+```bash
+java -jar Trimmomatic-0.36/trimmomatic-0.36.jar \
+	PE -phred33 \
+	kian8.4l800a1.fastq \
+	kian8.4l800a2.fastq \
+	kian8.4l800a1_tr.fastq \
+	kian8.4l800a1_tr_unpaired.fastq \
+	kian8.4l800a2_tr.fastq \
+        kian8.4l800a2_tr_unpaired.fastq \
+	ILLUMINACLIP:Trimmomatic-0.36/adapters/TruSeq3-PE.fa:2:30:10 \
+	LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:36;
+```
+###Head Processing for Kian8.4
+```bash
+head -n 408104088 kian8.4l800a1_tr.fastq > kian8.4l800a1_tr_clipped.fastq;
+head -n 408104088 kian8.4l800a2_tr.fastq > kian8.4l800a2_tr_clipped.fastq;
+```
 ##Make bamfiles
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
