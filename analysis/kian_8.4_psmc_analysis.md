@@ -63,7 +63,7 @@ samtools rmdup mass_auto_toro824.sorted.bam mass_auto_toro824.sorted.nodups.bam 
 samtools rmdup mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
 ```
 
-##Extract fq.gz
+##Create vcf
 So I actually need the vcf file to get an snp count...
 ```bash
 samtools mpileup -C50 -uf $REF mass_auto_KAR3.bam > mass_auto_KAR3.vcf &
@@ -72,11 +72,19 @@ samtools mpileup -C50 -uf $REF mass_auto_RANO.bam > mass_auto_RANO.vcf
 samtools mpileup -C50 -uf $REF mass_auto_toro824.bam > mass_auto_toro824.vcf
 samtools mpileup -C50 -uf $REF mass_auto_kian8.4.bam > mass_auto_kian8.4.vcf
 ```
+##Process vcf for variant count (not for the next step for the psmc scaling) 
+```
+bcftools call -v -V indels -m mass_auto_kian8.4.sorted.nodups.vcf > kian84.called.vcf &
+bcftools call -v -V indels -m mass_auto_kar3_sorted.nodups.vcf > kar3.called.vcf &
+bcftools call -v -V indels -m mass_auto_KIAN81.sorted.nodups.vcf > kian81.called.vcf &
+bcftools call -v -V indels -m mass_auto_RANO.sorted.nodups.vcf > rano.called.vcf &
+bcftools call -v -V indels -m mass_auto_toro824.sorted.nodups.vcf > toro824.called.vcf;
+```
 Another fun little change here.  Bcftools view and bcftools call switched some
 functionality a little while ago.  Heng Li's blog recommends
 `bcftools view -c -`, but that doesn't work with the newer versions of the
 software, so I made a switch.
-
+##Extract fq.gz
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
 cat mass_auto_KAR3.vcf | bcftools call -c | \
