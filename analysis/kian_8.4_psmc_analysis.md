@@ -38,7 +38,7 @@ bwa mem -t 32 $REF KAR3_S1_R1_001_tr_paired.fq KAR3_S1_R2_001_tr_paired.fq > mas
 bwa mem -t 32 $REF KIAN81_S4_R1_001_tr_paired.fq KIAN81_S4_R2_001_tr_paired.fq > mass_auto_KIAN81.bam;
 bwa mem -t 32 $REF RANO355_S3_R1_001_tr_paired.fq RANO355_S3_R2_001_tr_paired.fq > mass_auto_RANO.bam;
 bwa mem -t 32 $REF TORO824_S2_R1_001_tr_paired.fq TORO824_S2_R2_001_tr_paired.fq > mass_auto_toro824.bam;
-bwa mem -t 32 $REF ../kian8.4l280a1.fastq > mass_auto_kian8.4.bam; #280 insert length
+bwa mem -t 32 $REF kian8.4l800a1_tr_clipped.fastq kian8.4l800a2_tr_clipped.fastq > mass_auto_kian8.4_800.bam
 ```
 ##Sort bamfiles
 So this actually goes for the next couple steps.  The apt versions of samtools
@@ -51,7 +51,7 @@ samtools sort --reference $REF -O BAM -o mass_auto_kar3_sorted.bam mass_auto_KAR
 samtools sort --reference $REF -O BAM -o mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.bam &
 samtools sort --reference $REF -O BAM -o mass_auto_RANO.sorted.bam mass_auto_RANO.bam &
 samtools sort --reference $REF -O BAM -o mass_auto_toro824.sorted.bam mass_auto_toro824.bam  &
-samtools sort --reference $REF -O BAM -o mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.bam
+samtools sort --reference $REF -O BAM -o mass_auto_kian8.4_800.sorted.bam mass_auto_kian8.4_800.bam
 ```
 
 ##Remove Duplicates
@@ -60,7 +60,8 @@ samtools rmdup mass_auto_kar3_sorted.bam mass_auto_kar3_sorted.nodups.bam &
 samtools rmdup mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.sorted.nodups.bam &
 samtools rmdup mass_auto_RANO.sorted.bam mass_auto_RANO.sorted.nodups.bam &
 samtools rmdup mass_auto_toro824.sorted.bam mass_auto_toro824.sorted.nodups.bam &
-samtools rmdup mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
+samtools rmdup mass_auto_kian8.4_800.sorted.bam mass_auto_kian8.4_800.sorted.nodups.bam
+
 ```
 ##Get the average map coverage:
 ```bash
@@ -77,11 +78,11 @@ samtools mpileup -C50 -uf $REF mass_auto_kar3_sorted.nodups.bam > mass_auto_KAR3
 samtools mpileup -C50 -uf $REF mass_auto_KIAN81.sorted.nodups.bam > mass_auto_KIAN81.vcf
 samtools mpileup -C50 -uf $REF mass_auto_RANO.sorted.nodups.bam > mass_auto_RANO.vcf
 samtools mpileup -C50 -uf $REF mass_auto_toro824.sorted.nodups.bam > mass_auto_toro824.vcf
-samtools mpileup -C50 -uf $REF mass_auto_kian8.4.sorted.nodups.bam > mass_auto_kian8.4.vcf
+samtools mpileup -C50 -uf $REF mass_auto_kian8.4_800.sorted.nodups.bam > mass_auto_kian8.4_800.vcf
 ```
 ##Process vcf for variant count (not for the next step for the psmc scaling)
 ```
-bcftools call -v -V indels -m mass_auto_kian8.4.sorted.nodups.vcf > kian84.called.vcf &
+bcftools call -v -V indels -m mass_auto_kian8.4_800.vcf > kian84.800.called.vcf &
 bcftools call -v -V indels -m mass_auto_kar3_sorted.nodups.vcf > kar3.called.vcf &
 bcftools call -v -V indels -m mass_auto_KIAN81.sorted.nodups.vcf > kian81.called.vcf &
 bcftools call -v -V indels -m mass_auto_RANO.sorted.nodups.vcf > rano.called.vcf &
@@ -108,8 +109,8 @@ cat mass_auto_RANO.vcf | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_RANO.fq.gz
 cat mass_auto_toro824.vcf | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_toro824.fq.gz
-cat mass_auto_kian8.4.vcf | bcftools call -c | \
-		vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_kian8.4.fq.gz
+cat mass_auto_kian8.4_800.vcf | bcftools call -c | \
+  vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_kian84.fq.gz
 ```
 
 ##Create .psmc file:
