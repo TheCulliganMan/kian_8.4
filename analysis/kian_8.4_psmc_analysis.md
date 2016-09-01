@@ -138,4 +138,4 @@ Next plot everything.  I used a [template by Heng Li](http://lh3lh3.users.source
 ```bash
 python psmc_plotter <path to bootstrap_dir> <path to another bootstrap_dir>
 ```
-After that you have to edit the [gnuplot teplate file](../templates/simus_plot.gp).  This file will produce the end psmc graph, ready to be rescaled.
+After that you have to edit the [gnuplot template file](../templates/simus_plot.gp).  This file will produce the end psmc graph, ready to be rescaled.
