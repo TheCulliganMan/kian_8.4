@@ -65,10 +65,10 @@ samtools rmdup mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
 ##Get the average map coverage:
 ```bash
 for I in *.nodups.bam; do
-	echo $I;
+	echo $I >> cov_stats.txt;
 	samtools depth $I |
-	awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)*2)}';
-done;
+	awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)*2)}' >> cov_stats.txt;
+done &
 ```
 ##Create vcf
 So I actually need the vcf file to get an snp count...
