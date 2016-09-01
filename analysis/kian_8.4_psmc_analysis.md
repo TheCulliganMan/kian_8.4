@@ -62,7 +62,14 @@ samtools rmdup mass_auto_RANO.sorted.bam mass_auto_RANO.sorted.nodups.bam &
 samtools rmdup mass_auto_toro824.sorted.bam mass_auto_toro824.sorted.nodups.bam &
 samtools rmdup mass_auto_kian8.4.sorted.bam mass_auto_kian8.4.sorted.nodups.bam
 ```
-
+##Get the average map coverage:
+```bash
+for I in *.nodups.bam; do
+	echo $I;
+	samtools depth $I |
+	awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)*2)}';
+done;
+```
 ##Create vcf
 So I actually need the vcf file to get an snp count...
 ```bash
@@ -79,6 +86,12 @@ bcftools call -v -V indels -m mass_auto_kar3_sorted.nodups.vcf > kar3.called.vcf
 bcftools call -v -V indels -m mass_auto_KIAN81.sorted.nodups.vcf > kian81.called.vcf &
 bcftools call -v -V indels -m mass_auto_RANO.sorted.nodups.vcf > rano.called.vcf &
 bcftools call -v -V indels -m mass_auto_toro824.sorted.nodups.vcf > toro824.called.vcf;
+
+for I in *called.vcf; do
+	echo $I >> variant_counts.txt;
+	grep -c -v "^#" $I >> variant_counts.txt;
+done;
+
 ```
 Another fun little change here.  Bcftools view and bcftools call switched some
 functionality a little while ago.  Heng Li's blog recommends
