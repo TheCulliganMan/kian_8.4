@@ -16,5 +16,5 @@ for I in *.bam ; do  samtools sort $I $I.sorted.bam; done
 ```
 #Remove duplicates
 ```bash
-for I in *.bam ; do  samtools rmdup $I $I.rmdup.bam; done
+for I in *sorted.bam ; do  samtools rmdup $I $I.rmdup.bam; done
 ```
