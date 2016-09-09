@@ -14,7 +14,7 @@ samtools view -bS -F 4 - > TORO824_mapped.bam;
 ```bash
 for I in *.bam ; do  samtools sort $I $I.sorted.bam; done
 ```
-#remove duplicates
+#Remove duplicates
 ```bash
 for I in *.bam ; do  samtools rmdup $I $I.rmdup.bam; done
 ```
