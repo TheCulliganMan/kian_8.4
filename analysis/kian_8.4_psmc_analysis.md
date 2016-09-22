@@ -63,6 +63,12 @@ samtools sort --reference $REF -O BAM -o mass_auto_KIAN81.sorted.bam mass_auto_K
 samtools sort --reference $REF -O BAM -o mass_auto_RANO.sorted.bam mass_auto_RANO.bam &
 samtools sort --reference $REF -O BAM -o mass_auto_toro824.sorted.bam mass_auto_toro824.bam  &
 samtools sort --reference $REF -O BAM -o mass_auto_kian8.4_800.sorted.bam mass_auto_kian8.4_800.bam
+
+REF='mmr_ref_Mmur_2.0_chrUn.fa'
+samtools sort --reference $REF -O BAM -o mmur_align_sorted.bam mmur_align.bam 
+
+REF='379532_ref_Pcoq_1.0_chrUn.fa'
+samtools sort --reference $REF -O BAM -o pcoq_align_sorted.bam pcoq_align.bam
 ```
 
 ##Remove Duplicates
