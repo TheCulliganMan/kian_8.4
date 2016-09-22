@@ -30,9 +30,20 @@ java -jar Trimmomatic-0.36/trimmomatic-0.36.jar \
 ```bash
 head -n 408104088 kian8.4l800a1_tr.fastq > kian8.4l800a1_tr_clipped.fastq;
 head -n 408104088 kian8.4l800a2_tr.fastq > kian8.4l800a2_tr_clipped.fastq;
+
+head -n 408104088 m_mur_SRR1662129_1_tr.fastq > m_mur_SRR1662129_1_tr.fastq.head_trimmed.fq;
+head -n 408104088 m_mur_SRR1662129_2_tr.fastq > m_mur_SRR1662129_2_tr.fastq.head_trimmed.fq;
+
+head -n 408104088 p_coq_SRR1657023_1_tr.fastq > p_coq_SRR1657023_1_tr.fastq.head_trimmed.fq;
+head -n 408104088 p_coq_SRR1657023_2_tr.fastq > p_coq_SRR1657023_2_tr.fastq.head_trimmed.fq;
 ```
 ##Make bamfiles
 ```bash
+REF='mmr_ref_Mmur_2.0_chrUn.fa'
+bwa mem -t 32 $REF m_mur_SRR1662129_1_tr.fastq.head_trimmed.fq m_mur_SRR1662129_2_tr.fastq.head_trimmed.fq  > mmur_align.bam
+REF='379532_ref_Pcoq_1.0_chrUn.fa'
+bwa mem -t 32 $REF p_coq_SRR1657023_1_tr.fastq.head_trimmed.fq p_coq_SRR1657023_2_tr.fastq.head_trimmed.fq > pcoq_align.bam
+
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
 bwa mem -t 32 $REF KAR3_S1_R1_001_tr_paired.fq KAR3_S1_R2_001_tr_paired.fq > mass_auto_KAR3.bam;
 bwa mem -t 32 $REF KIAN81_S4_R1_001_tr_paired.fq KIAN81_S4_R2_001_tr_paired.fq > mass_auto_KIAN81.bam;
