@@ -79,6 +79,11 @@ samtools rmdup mass_auto_RANO.sorted.bam mass_auto_RANO.sorted.nodups.bam &
 samtools rmdup mass_auto_toro824.sorted.bam mass_auto_toro824.sorted.nodups.bam &
 samtools rmdup mass_auto_kian8.4_800.sorted.bam mass_auto_kian8.4_800.sorted.nodups.bam
 
+REF='mmr_ref_Mmur_2.0_chrUn.fa'
+samtools rmdup --reference $REF mmur_align_sorted.bam mmur_align_sorted.nodups.bam 
+
+REF='379532_ref_Pcoq_1.0_chrUn.fa'
+samtools rmdup --reference $REF pcoq_align_sorted.bam pcoq_align_sorted.nodups.bam 
 ```
 ##Get the average map coverage:
 ```bash
