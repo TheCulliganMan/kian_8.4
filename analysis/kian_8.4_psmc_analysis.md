@@ -37,6 +37,14 @@ head -n 408104088 m_mur_SRR1662129_2_tr.fastq > m_mur_SRR1662129_2_tr.fastq.head
 head -n 408104088 p_coq_SRR1657023_1_tr.fastq > p_coq_SRR1657023_1_tr.fastq.head_trimmed.fq;
 head -n 408104088 p_coq_SRR1657023_2_tr.fastq > p_coq_SRR1657023_2_tr.fastq.head_trimmed.fq;
 ```
+###For the high coverage correction 30x coverage
+```bash
+for I in *fq.gz
+do
+zcat $I | head -n 1224312264 > $I.clipped.fq
+done
+
+```
 ##Make bamfiles
 ```bash
 REF='mmr_ref_Mmur_2.0_chrUn.fa'
