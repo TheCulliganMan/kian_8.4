@@ -64,6 +64,8 @@ So this actually goes for the next couple steps.  The apt versions of samtools
 and bcftools actually conflict with one another right now.  You can't have both
 installed at the same time.  You should compile from source right here
 [samtools & bcftools](http://samtools.github.io/bcftools/).
+
+This also has to be done in the newest versions of samtools.  Other versions will not support the reference sequences.
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
 samtools sort --reference $REF -O BAM -o mass_auto_kar3_sorted.bam mass_auto_KAR3.bam &
