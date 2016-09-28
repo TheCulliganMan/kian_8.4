@@ -119,6 +119,7 @@ bcftools call -v -V indels -m mass_auto_kar3_sorted.nodups.vcf > kar3.called.vcf
 bcftools call -v -V indels -m mass_auto_KIAN81.sorted.nodups.vcf > kian81.called.vcf &
 bcftools call -v -V indels -m mass_auto_RANO.sorted.nodups.vcf > rano.called.vcf &
 bcftools call -v -V indels -m mass_auto_toro824.sorted.nodups.vcf > toro824.called.vcf;
+bcftools call -v -V indels -m  mass_auto_kian8.4_800.high.cov.vcf > mass_auto_kian8.4_800.high.cov.called.vcf
 
 for I in *called.vcf; do
 	echo $I >> variant_counts.txt;
