@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from multiprocess import Pool
+from multiprocessing import Pool
 import os
 import subprocess as sp
 
@@ -53,7 +53,7 @@ def get_paired_fastq(path):
         )
 
         if prev_end_chars == end_chars and start_chars == prev_start_chars:
-            yield prev, fastq, non_d_nameNOVOSORT_PATH = 'novosort'
+            yield prev, fastq, non_d_name
         prev = fastq
         prev_start_chars = start_chars
         prev_end_chars = end_chars
@@ -74,10 +74,7 @@ def bwa_index_fasta(fasta_path):
 def bwa_mem_cmd(fasta_path, fw_fq, rv_fq):
     """ bwa mem command builder """
 
-    short_fw_fq = get_fastq_file_path(fasta_path, fw_fq)
-    short_rv_fq = get_fastq_file_path(fasta_path, rv_fq)
-
-    cmd = [BWA_PATH, 'mem', fasta_path, short_fw_fq, short_rv_fq]
+    cmd = [BWA_PATH, 'mem', fasta_path, fw_fq, rv_fq]
 
     return cmd
 
@@ -118,13 +115,14 @@ def build_fasta_indices(fasta_path):
     """ builds fasta indices """
     bwa_cmd = bwa_index_fasta(fasta_path)
     sam_cmd = samtools_index_fasta(fasta_path)
-
-    sp.call(bwa_cmd)
+    if not os.path.isfile(fasta_path+".amb"):
+        sp.call(bwa_cmd)
     sp.call(sam_cmd)
     return True
 
 
-def build_working_bam(ref_file, fw_fq, rv_fq, base_name):
+def build_working_bam(args):
+    ref_file, fw_fq, rv_fq, base_name = args
     """ builds first step bamfile """
     bamfile_working = base_name + "_working.bam"
     final_bam = "_final.bam"
@@ -154,17 +152,38 @@ def build_final_bam(bamfile_working, bamfile_final):
     return bamfile_final
 
 
+def trim(reads):
+    read_1, read_2, base_name = reads
+    new_name_1 = "{}_paired.fastq".format(base_name)
+    new_name_2 = "{}_paired.fastq".format(base_name)
+    if not os.path.isfile(new_name_1) and not os.path.isfile(new_name_2):
+        cmd = """java -jar Trimmomatic-0.36/trimmomatic-0.36.jar PE \
+                    -phred33 \
+                    {} {} \
+                    {} /tmp/{}_unpaired.fastq \
+                    {} /tmp/{}_unpaired.fastq \
+                    ILLUMINACLIP:Trimmomatic-0.36/adapters/TruSeq3-PE.fa:2:30:10 \
+                    LEADING:3 \
+                    TRAILING:3 \
+                    SLIDINGWINDOW:4:30 \
+                    MINLEN:70;
+                """.format(read_1, read_2, new_name_1, new_name_2, read_1, read_2)
+        return (cmd)
+        #sp.call(cmd, shell=True)
+    return new_name_1, new_name_2
+
 def multiprocess_bwa(fasta, paired_fastqs, cores = 8):
     p = Pool(cores)
     build_fasta_indices(fasta)
+    #all_trimmed_fastqs = p.map(trim, paired_fastqs)
     all_bam_names = p.map(build_working_bam, ([fasta] + list(fqs) for fqs in paired_fastqs))
     final_bams = p.map(build_final_bam, all_bam_names)
 
 
 def main():
-    fasta = ""
-    path = "../Desktop/simus_reads"
-    fastqs = get_paired_fastq(path)
+    fasta = "MaSuRCA_contigs_idclipped.xchr.fasta"
+    path = os.getcwd()
+    fastq_pairs = get_paired_fastq(path)
     multiprocess_bwa(fasta, fastq_pairs)
 
 
