@@ -17,7 +17,7 @@ Autosome extraction pipeline to prep for PSMC.
 
 
 ##[PSMC](analysis/kian_8.4_psmc_analysis.md)
-Evolutionary bottleneck analysis with PSMC.
+Evolutionary bottleneck analysis with PSMC. Includes commands for data trimming. :cat:
 
 
 ##[Mitochondria Mapping](analysis/mito_map.md)
