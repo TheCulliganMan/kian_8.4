@@ -74,7 +74,7 @@ def bwa_index_fasta(fasta_path):
 def bwa_mem_cmd(fasta_path, fw_fq, rv_fq):
     """ bwa mem command builder """
 
-    cmd = [BWA_PATH, 'mem', fasta_path, fw_fq, rv_fq]
+    cmd = [BWA_PATH, 'mem', '-t', '32', fasta_path, fw_fq, rv_fq]
 
     return cmd
 
@@ -140,7 +140,8 @@ def build_working_bam(args):
     return bamfile_working, final_bam
 
 
-def build_final_bam(bamfile_working, bamfile_final):
+def build_final_bam(bamfile_working):
+    bamfile_final = bamfile_working.rsplit(".", 1)[0] + ".final.bam"
     """ builds finalized bamfile """
     dups_cmd = mark_duplicates_cmd(bamfile_working, bamfile_final)
     index_bam_cmd = samtools_index_bam_cmd(bamfile_final)
