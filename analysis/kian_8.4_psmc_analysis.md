@@ -161,7 +161,9 @@ This command works by dragging the file into the psmcfa folder and running.
 Change the default values to fit your project.
 
 ```bash
-psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o mass_auto_KAR3.psmc mass_auto_KAR3.psmcfa;
+# psmc -N25 -t15 -r5 -p "4+25*2+4+6" -o mass_auto_KAR3.psmc mass_auto_KAR3.psmcfa;
+
+# for I in allosome_align_*psmcfa ; do /psmc/psmc -N20 -t15 -r5 -b -p "4+25*2+4+6" -o $I.psmc $I &  done
 
 seq 100 | xargs -i echo psmc -N25 -t15 -r5 -b -p "4+25*2+4+6" \
 	    -o round-{}.psmc split.fa | sh
