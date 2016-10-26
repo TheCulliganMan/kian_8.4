@@ -106,6 +106,9 @@ done &
 ##Create vcf
 So I actually need the vcf file to get an snp count...
 ```bash
+
+# or I in *final.bam; do samtools mpileup -C50 -uf $REF $I > $I.vcf &  done
+ 
 samtools mpileup -C50 -uf $REF mass_auto_kar3_sorted.nodups.bam > mass_auto_KAR3.vcf &
 samtools mpileup -C50 -uf $REF mass_auto_KIAN81.sorted.nodups.bam > mass_auto_KIAN81.vcf
 samtools mpileup -C50 -uf $REF mass_auto_RANO.sorted.nodups.bam > mass_auto_RANO.vcf
@@ -114,6 +117,8 @@ samtools mpileup -C50 -uf $REF mass_auto_kian8.4_800.sorted.nodups.bam > mass_au
 ```
 ##Process vcf for variant count (not for the next step for the psmc scaling)
 ```
+# for I in *.bam.vcf ; do bcftools call -v -V indels -m $I > $I.called.vcf & done
+
 bcftools call -v -V indels -m mass_auto_kian8.4_800.vcf > kian84.800.called.vcf &
 bcftools call -v -V indels -m mass_auto_kar3_sorted.nodups.vcf > kar3.called.vcf &
 bcftools call -v -V indels -m mass_auto_KIAN81.sorted.nodups.vcf > kian81.called.vcf &
