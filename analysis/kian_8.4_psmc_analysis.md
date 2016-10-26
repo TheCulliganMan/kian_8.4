@@ -1,18 +1,18 @@
-#Kian 8.4 PSMC
+# Kian 8.4 PSMC
 For loops are usually a good idea...
-##Index Fasta
+## Index Fasta
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
 bwa index $REF
 ```
-##Process Reads:
+## Process Reads:
 All reads were processed using trimmomatic.  The Toro, Rano, and Kian81 reads
 had a ~600 insert length. To match this with the Kian8.4 reads we used the 8.4
 ~800 insert length sequences.  Then ran his raw reads through trimmomatic at the
 same settings, and then clipped the forward and reverse reads with head to the
 length of the Kar3 forward sample.
 
-###Trimmomatic for each sample
+### Trimmomatic for each sample
 
 ```bash
 java -jar Trimmomatic-0.36/trimmomatic-0.36.jar \
@@ -26,7 +26,7 @@ java -jar Trimmomatic-0.36/trimmomatic-0.36.jar \
 	ILLUMINACLIP:Trimmomatic-0.36/adapters/TruSeq3-PE.fa:2:30:10 \
 	LEADING:3 TRAILING:3 SLIDINGWINDOW:4:20 MINLEN:36;
 ```
-###Head Processing for Kian8.4
+### Head Processing for Kian8.4
 ```bash
 head -n 408104088 kian8.4l800a1_tr.fastq > kian8.4l800a1_tr_clipped.fastq;
 head -n 408104088 kian8.4l800a2_tr.fastq > kian8.4l800a2_tr_clipped.fastq;
@@ -37,7 +37,7 @@ head -n 408104088 m_mur_SRR1662129_2_tr.fastq > m_mur_SRR1662129_2_tr.fastq.head
 head -n 408104088 p_coq_SRR1657023_1_tr.fastq > p_coq_SRR1657023_1_tr.fastq.head_trimmed.fq;
 head -n 408104088 p_coq_SRR1657023_2_tr.fastq > p_coq_SRR1657023_2_tr.fastq.head_trimmed.fq;
 ```
-###For the high coverage correction 30x coverage
+### For the high coverage correction 30x coverage
 ```bash
 for I in *fq.gz
 do
@@ -45,7 +45,7 @@ zcat $I | head -n 1224312264 > $I.clipped.fq
 done
 
 ```
-##Make bamfiles
+## Make bamfiles
 ```bash
 REF='mmr_ref_Mmur_2.0_chrUn.fa'
 bwa mem -t 32 $REF m_mur_SRR1662129_1_tr.fastq.head_trimmed.fq m_mur_SRR1662129_2_tr.fastq.head_trimmed.fq  > mmur_align.bam
@@ -59,7 +59,7 @@ bwa mem -t 32 $REF RANO355_S3_R1_001_tr_paired.fq RANO355_S3_R2_001_tr_paired.fq
 bwa mem -t 32 $REF TORO824_S2_R1_001_tr_paired.fq TORO824_S2_R2_001_tr_paired.fq > mass_auto_toro824.bam;
 bwa mem -t 32 $REF kian8.4l800a1_tr_clipped.fastq kian8.4l800a2_tr_clipped.fastq > mass_auto_kian8.4_800.bam
 ```
-##Sort bamfiles
+## Sort bamfiles
 So this actually goes for the next couple steps.  The apt versions of samtools
 and bcftools actually conflict with one another right now.  You can't have both
 installed at the same time.  You should compile from source right here
@@ -81,7 +81,7 @@ REF='379532_ref_Pcoq_1.0_chrUn.fa'
 samtools sort --reference $REF -O BAM -o pcoq_align_sorted.bam pcoq_align.bam
 ```
 
-##Remove Duplicates
+## Remove Duplicates
 ```bash
 samtools rmdup mass_auto_kar3_sorted.bam mass_auto_kar3_sorted.nodups.bam &
 samtools rmdup mass_auto_KIAN81.sorted.bam mass_auto_KIAN81.sorted.nodups.bam &
@@ -95,7 +95,11 @@ samtools rmdup --reference $REF mmur_align_sorted.bam mmur_align_sorted.nodups.b
 REF='379532_ref_Pcoq_1.0_chrUn.fa'
 samtools rmdup --reference $REF pcoq_align_sorted.bam pcoq_align_sorted.nodups.bam 
 ```
-##Get the average map coverage:
+## Count the Mapped Reads
+```
+for I in *final.bam; do echo $I; samtools view -F 0x40 $I | cut -f1 | sort | uniq | wc -l; done > mapped_reads.txt
+```
+## Get the average map coverage:
 ```bash
 for I in *.nodups.bam; do
 	echo $I >> cov_stats.txt;
@@ -103,7 +107,7 @@ for I in *.nodups.bam; do
 	awk '{sum+=$3; sumsq+=$3*$3} END { print "Average = ",sum/NR; print "Stdev = ",sqrt(sumsq/NR - (sum/NR)*2)}' >> cov_stats.txt;
 done &
 ```
-##Create vcf
+## Create vcf
 So I actually need the vcf file to get an snp count...
 ```bash
 
@@ -115,7 +119,7 @@ samtools mpileup -C50 -uf $REF mass_auto_RANO.sorted.nodups.bam > mass_auto_RANO
 samtools mpileup -C50 -uf $REF mass_auto_toro824.sorted.nodups.bam > mass_auto_toro824.vcf
 samtools mpileup -C50 -uf $REF mass_auto_kian8.4_800.sorted.nodups.bam > mass_auto_kian8.4_800.vcf
 ```
-##Process vcf for variant count (not for the next step for the psmc scaling)
+## Process vcf for variant count (not for the next step for the psmc scaling)
 ```
 # for I in *.bam.vcf ; do bcftools call -v -V indels -m $I > $I.called.vcf & done
 
@@ -136,7 +140,7 @@ Another fun little change here.  Bcftools view and bcftools call switched some
 functionality a little while ago.  Heng Li's blog recommends
 `bcftools view -c -`, but that doesn't work with the newer versions of the
 software, so I made a switch.
-##Extract fq.gz
+## Extract fq.gz
 ```bash
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
 cat mass_auto_KAR3.vcf | bcftools call -c | \
@@ -151,7 +155,7 @@ cat mass_auto_kian8.4_800.vcf | bcftools call -c | \
   vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_kian84.fq.gz
 ```
 
-##Create .psmc file:
+## Create .psmc file:
 Convert the fq.gz to psmcfa files.
 ```bash
 /psmc/utils/fq2psmcfa -q20 mass_auto_KAR3.fq.gz > mass_auto_KAR3.psmcfa &
