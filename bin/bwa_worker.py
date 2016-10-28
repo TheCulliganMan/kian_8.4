@@ -176,15 +176,15 @@ def trim(reads):
 
 def multiprocess_bwa(fasta, paired_fastqs, cores = 1):
     p = Pool(cores)
-    #build_fasta_indices(fasta)
+    build_fasta_indices(fasta)
     #all_trimmed_fastqs = p.map(trim, paired_fastqs)
     for fastq_pair in paired_fastqs:
         trim(fastq_pair)
-    #p = Pool(1)
-    #pairs = [[fasta] + list(fqs) for fqs in all_trimmmed_fastqs]
-    #all_bam_names = p.map(build_working_bam, pairs)
-    #p = Pool(cores)
-    #final_bams = p.map(build_final_bam, all_bam_names)
+    p = Pool(1)
+    pairs = [[fasta] + list(fqs) for fqs in all_trimmmed_fastqs]
+    all_bam_names = p.map(build_working_bam, pairs)
+    p = Pool(cores)
+    final_bams = p.map(build_final_bam, all_bam_names)
 
 
 def main():
