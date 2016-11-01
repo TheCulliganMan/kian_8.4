@@ -1,7 +1,7 @@
 #Kian8.4 Genome Stats and Analysis
 
 ##[Trimmomatic + NxTrim](analysis/kian_8.4_trimming.md)
-Raw read trimming results for fastq files.
+Raw read trimming results for fastq files. Trimmomatic for mate pair and nxtrim for 6 and 8 kb insert lengths.
 
 
 ##[Repeat Masking](analysis/kian_8.4_repeat_masking.md)
