@@ -142,6 +142,7 @@ functionality a little while ago.  Heng Li's blog recommends
 software, so I made a switch.
 ## Extract fq.gz
 ```bash
+# for I in *.bam.vcf; do cat $I | bcftools call -c | vcfutils.pl vcf2fq -d 10 -D 100 | gzip > $I.fq.gz; done
 REF='masurca_mito_y_x_removed.final.contigs.fasta'
 cat mass_auto_KAR3.vcf | bcftools call -c | \
 	vcfutils.pl vcf2fq -d 10 -D 100 | gzip > mass_auto_KAR3.fq.gz
