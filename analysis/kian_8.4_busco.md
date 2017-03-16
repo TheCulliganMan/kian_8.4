@@ -1,5 +1,5 @@
-#Busco
-##Commands:
+# Busco
+## Commands:
 I ran all the commands in a docker image.  It can be found on the docker hub.
 ```bash
 docker run -itv <path>:/work theculliganman/busco
@@ -14,8 +14,8 @@ busco -f -c 10 --abrev masur -g MaSuRCA_scaffold.scafSeq -l /BUSCO_v1.22/vertebr
 busco -f -c 10 --abrev allpa -g allpaths.final.assembly.fasta -l /BUSCO_v1.22/vertebrata > allpaths_busco.log &
 busco -f -c 10 --abrev soapd -g kian8.4k29gpgenome.fa -l /BUSCO_v1.22/vertebrata > soap_busco.log &
 ```
-##Results:
-###Abyss:
+## Results:
+### Abyss:
 ```
 Complete: 1629
 Single: 1620
@@ -46,7 +46,7 @@ Fragment: 818
 Missing: 729
 Total BUSCO groups searched: 3023
 ```
-###Platanus:
+### Platanus:
 [Short Summary](../results/busco_stats/platanus/short_summary_plata)
 
 [Full Table](../results/busco_stats/platanus/full_table_plata)
@@ -61,7 +61,7 @@ Fragment: 811
 Missing: 1077
 Total BUSCO groups searched: 3023
 ```
-###MaSuRCA:
+### MaSuRCA:
 
 [Short Summary](../results/busco_stats/masurca/short_summary_masurca)
 
@@ -77,7 +77,7 @@ Fragment: 416
 Missing: 1552
 Total BUSCO groups searched: 3023
 ```
-###Soap De Novo:
+### Soap De Novo:
 [Short Summary](../results/busco_stats/soap/short_summary_soapd)
 
 [Full Table](../results/busco_stats/soap/full_table_soapd)
