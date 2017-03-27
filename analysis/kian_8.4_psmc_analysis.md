@@ -135,6 +135,10 @@ for I in *called.vcf; do
 	grep -c -v "^#" $I >> variant_counts.txt;
 done;
 
+OR 
+
+bcftools stats *vcf
+
 ```
 Another fun little change here.  Bcftools view and bcftools call switched some
 functionality a little while ago.  Heng Li's blog recommends
