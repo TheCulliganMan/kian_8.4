@@ -1,9 +1,9 @@
-#Kian8.4 Autosome Extraction
-##Download programs:
+# Kian8.4 Autosome Extraction
+## Download programs:
 ```bash
 git clone https://github.com/TheCulliganMan/extract_autosome.git
 ```
-##Run Programs:
+## Run Programs:
 ```python
 import extract_autosome
 
@@ -45,7 +45,7 @@ extract_autosome.unmask_autosome(
 )
 ```
 
-##Length Counter Code:
+## Length Counter Code:
 
 ```python
 #!/usr/bin/env python
@@ -85,9 +85,9 @@ with open(filename) as input_handle:
 print("TOTAL CONTIGS", total_contigs)
 ```
 
-##RESULTS:
+## RESULTS:
 
-###Base Pair Counts:
+### Base Pair Counts:
 
 ```
 Orignal Sequence Length: 2,238,717,771 bp
